@@ -22,6 +22,7 @@ Data set found in the R package [Stat2Data](https://rdrr.io/rforge/Stat2Data/man
 Descriptive statistics
 ========================================================
 
+
 ```{r, echo=FALSE}
 library(Stat2Data)
 data("Film")
@@ -30,7 +31,35 @@ data("Film")
 
 $\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$
 
-Boxplot rating per year
+
+
+Graphical analysis
+========================================================
+
+```{r, echo=FALSE}
+library(htmlwidgets) 
+library(plotly)
+library(tidyverse)
+data=Film[!duplicated(Film$Year), ]
+p <- plot_ly(data,x=~Year, y=~Time,  type="scatter",mode="markers",color=~factor(Origin))%>% layout(title = "Rating starts per year", xaxis = list(title = "Year"),yaxis = list(title = "Running time (in minutes)"))
+htmlwidgets::saveWidget(p,'1st_plot.html')
+
+
+```
+
+<style>
+	  .p_iframe iframe {
+	    width:90%;
+	    height:576px;
+	}
+	</style>
+	
+
+<div class="p_iframe">
+<iframe frameborder="0" seamless='seamless' scrolling=no src="1st_plot.html"></iframe>
+</div>
+
+Graphical analysis
 ========================================================
 
 ```{r, echo=FALSE}
@@ -38,88 +67,45 @@ library(htmlwidgets)
 library(plotly)
 library(tidyverse)
 
-p1<-plot_ly(Film, x = ~Rating, y = ~Year) %>%
-  add_boxplot() %>%
-  layout(yaxis = list(title = "Year"))
 
-htmlwidgets::saveWidget(p1,'boxplots.html')
-
-```
-
-<style>
-	  .p_iframe iframe {
-	    width:90%;
-	    height:576px;
-	}
-	</style>
-	
-
-<div class="p_iframe">
-<iframe frameborder="0" seamless='seamless' scrolling=no src="boxplots.html"></iframe>
-</div>
-
-Movie duration per year
-========================================================
-
-```{r, echo=FALSE}
-
-Film$Good[which(Film$Good == 0)] <- 'Bad'
-Film$Good[which(Film$Good == 1)] <- 'Good'
-Film$Good <- as.factor(Film$Good)
-
-
-
-p2<-plot_ly(data = Film, x = ~Year, y = ~Time,color=~Good, type = "scatter", mode = "markers") %>% layout( xaxis = list(title = "Year"), 
-         yaxis = list(title = "Time (minutes)"))
-htmlwidgets::saveWidget(p2,'scatterplot.html')
-
-```
-
-<style>
-	  .p_iframe iframe {
-	    width:90%;
-	    height:576px;
-	}
-	</style>
-	
-
-
-<div class="p_iframe">
-<iframe frameborder="0" seamless='seamless' scrolling=no src="scatterplot.html"></iframe>
-</div>
-
-Year, time and rating per country
-========================================================
-
-```{r, echo=FALSE}
-Film= Film[ ! Film$Origin %in% c(5,6), ]
 Film=Film%>% mutate(Origin = replace(Origin, Origin==0, "USA"))
 Film=Film%>% mutate(Origin = replace(Origin, Origin==1, "GB"))
 Film=Film%>% mutate(Origin = replace(Origin, Origin==2, "FR"))
 Film=Film%>% mutate(Origin = replace(Origin, Origin==3, "ITL"))
 Film=Film%>% mutate(Origin = replace(Origin, Origin==4, "CANADA"))
 
+a=with(data, sum(Time[Origin=="USA"]))
+b=with(data, sum(Time[Origin=="GB"]))
+c=with(data, sum(Time[Origin=="FR"]))
+d=with(data, sum(Time[Origin=="ITL"]))
+e=with(data, sum(Time[Origin=="CANADA"]))
 
-p3<-plot_ly(Film, x = ~Year, y = ~Time, z = ~Rating,type = "scatter3d",mode = "markers", 
-            color = ~Origin) 
 
-htmlwidgets::saveWidget(p3,'3D.html')
+sunb<-plot_ly(
+  labels = c("GB","USA","FR","ITL","CANADA"),
+  parents = c("","GB","GB","ITL","CANADA"),
+  values = c(521,380,321,138,0),
+  type = 'sunburst'
+)
 
+# sunb <- plot_ly(
+#   labels = c("Eve", "Cain", "Seth", "Enos", "Noam", "Abel", "Awan", "Enoch", "Azura"),
+#   parents = c("", "Eve", "Eve", "Seth", "Seth", "Eve", "Eve", "Awan", "Eve"),
+#   values = c(10, 14, 12, 10, 2, 6, 6, 4, 4),
+#   type = 'sunburst'
+# )
+
+htmlwidgets::saveWidget(sunb,'sunb_plot.html')
 ```
+
 
 <style>
 	  .p_iframe iframe {
-	    width:90%;
-	    height:576px;
+	    width:120%;
+	    height:700px;
 	}
 	</style>
 	
-
-
 <div class="p_iframe">
-<iframe frameborder="0" seamless='seamless' scrolling=no src="3D.html"></iframe>
+<iframe frameborder="0" seamless='seamless' scrolling=no src="sunb_plot.html"></iframe>
 </div>
-
-
-
-

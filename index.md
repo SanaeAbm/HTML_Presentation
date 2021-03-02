@@ -23,14 +23,11 @@ Descriptive statistics
 ========================================================
 
 
-
   
 
 $\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$
 
-
-
-Graphical analysis
+Boxplot rating per year
 ========================================================
 
 
@@ -44,22 +41,45 @@ Graphical analysis
 	
 
 <div class="p_iframe">
-<iframe frameborder="0" seamless='seamless' scrolling=no src="1st_plot.html"></iframe>
+<iframe frameborder="0" seamless='seamless' scrolling=no src="boxplots.html"></iframe>
 </div>
 
-Graphical analysis
+Movie duration per year
 ========================================================
-
 
 
 
 <style>
 	  .p_iframe iframe {
-	    width:120%;
-	    height:700px;
+	    width:90%;
+	    height:576px;
 	}
 	</style>
 	
+
+
 <div class="p_iframe">
-<iframe frameborder="0" seamless='seamless' scrolling=no src="sunb_plot.html"></iframe>
+<iframe frameborder="0" seamless='seamless' scrolling=no src="scatterplot.html"></iframe>
 </div>
+
+Year, time and rating per country
+========================================================
+
+
+
+<style>
+	  .p_iframe iframe {
+	    width:90%;
+	    height:576px;
+	}
+	</style>
+	
+
+
+<div class="p_iframe">
+<iframe frameborder="0" seamless='seamless' scrolling=no src="3D.html"></iframe>
+</div>
+
+
+
+
