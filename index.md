@@ -44,7 +44,7 @@ Graphical analysis
 	
 
 <div class="p_iframe">
-<iframe frameborder="0" seamless='seamless' scrolling=no src="plotly.html"></iframe>
+<iframe frameborder="0" seamless='seamless' scrolling=no src="1st_plot.html"></iframe>
 </div>
 
 Graphical analysis
@@ -53,15 +53,13 @@ Graphical analysis
 
 
 
-
 <style>
-	  #hey2 iframe {
+	  .p_iframe iframe {
 	    width:120%;
 	    height:700px;
 	}
 	</style>
 	
-
-<div class="p_iframe" id="hey2">
-<iframe frameborder="0" seamless='seamless' scrolling=no src="plotly.html"></iframe>
+<div class="p_iframe">
+<iframe frameborder="0" seamless='seamless' scrolling=no src="sunb_plot.html"></iframe>
 </div>

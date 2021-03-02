@@ -42,7 +42,7 @@ library(plotly)
 library(tidyverse)
 data=Film[!duplicated(Film$Year), ]
 p <- plot_ly(data,x=~Year, y=~Time,  type="scatter",mode="markers",color=~factor(Origin))%>% layout(title = "Rating starts per year", xaxis = list(title = "Year"),yaxis = list(title = "Running time (in minutes)"))
-htmlwidgets::saveWidget(p,'plotly.html')
+htmlwidgets::saveWidget(p,'1st_plot.html')
 
 
 ```
@@ -56,7 +56,7 @@ htmlwidgets::saveWidget(p,'plotly.html')
 	
 
 <div class="p_iframe">
-<iframe frameborder="0" seamless='seamless' scrolling=no src="plotly.html"></iframe>
+<iframe frameborder="0" seamless='seamless' scrolling=no src="1st_plot.html"></iframe>
 </div>
 
 Graphical analysis
@@ -66,22 +66,46 @@ Graphical analysis
 library(htmlwidgets) 
 library(plotly)
 library(tidyverse)
-data=Film[!duplicated(Film$Year), ]
-p2 <- plot_ly(data,x=~Time,type="histogram")%>% layout(yaxis=list(type='linear'))
-htmlwidgets::saveWidget(p2,'plotly.html')
 
+
+Film=Film%>% mutate(Origin = replace(Origin, Origin==0, "USA"))
+Film=Film%>% mutate(Origin = replace(Origin, Origin==1, "GB"))
+Film=Film%>% mutate(Origin = replace(Origin, Origin==2, "FR"))
+Film=Film%>% mutate(Origin = replace(Origin, Origin==3, "ITL"))
+Film=Film%>% mutate(Origin = replace(Origin, Origin==4, "CANADA"))
+
+a=with(data, sum(Time[Origin=="USA"]))
+b=with(data, sum(Time[Origin=="GB"]))
+c=with(data, sum(Time[Origin=="FR"]))
+d=with(data, sum(Time[Origin=="ITL"]))
+e=with(data, sum(Time[Origin=="CANADA"]))
+
+
+sunb<-plot_ly(
+  labels = c("GB","USA","FR","ITL","CANADA"),
+  parents = c("","GB","GB","ITL","CANADA"),
+  values = c(521,380,321,138,0),
+  type = 'sunburst'
+)
+
+# sunb <- plot_ly(
+#   labels = c("Eve", "Cain", "Seth", "Enos", "Noam", "Abel", "Awan", "Enoch", "Azura"),
+#   parents = c("", "Eve", "Eve", "Seth", "Seth", "Eve", "Eve", "Awan", "Eve"),
+#   values = c(10, 14, 12, 10, 2, 6, 6, 4, 4),
+#   type = 'sunburst'
+# )
+
+htmlwidgets::saveWidget(sunb,'sunb_plot.html')
 ```
 
 
-
 <style>
-	  #hey2 iframe {
+	  .p_iframe iframe {
 	    width:120%;
 	    height:700px;
 	}
 	</style>
 	
-
-<div class="p_iframe" id="hey2">
-<iframe frameborder="0" seamless='seamless' scrolling=no src="plotly.html"></iframe>
+<div class="p_iframe">
+<iframe frameborder="0" seamless='seamless' scrolling=no src="sunb_plot.html"></iframe>
 </div>
