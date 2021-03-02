@@ -1,0 +1,22 @@
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+/* Your other css */
+
+.section .reveal { 
+  text-indent:-20%;
+  font-size: 70px;
+  font-weight: bold;
+ 
+ 
+}
+
+.section .reveal .state-background {
+    background: url("cine.jpg");
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
