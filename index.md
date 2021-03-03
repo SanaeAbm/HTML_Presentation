@@ -4,31 +4,46 @@
 </script>
 
 Film data
-======
-author: 
+===================================
+author: Sanae Amzigh
 font-import: https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1&display=swap
 font-family: 'Shippori Mincho B1'
-css:costum.css
+css: costum.css
 
 ========================================================
+type: sub-section
+transition: fade
+transition-speed:fast
 
+
+<br>
 <br>
 <br>
 
 Data set found in the R package [Stat2Data](https://rdrr.io/rforge/Stat2Data/man/Film.html). The data collecting began when a statistician movie fan decided to use statistics to study the movie ratings in his favorite movie guide, Movie and Video Guide (1996), by Leonard Maltin. Maltin rates movies on a one-star to four-star system, in increments of half-stars, with higher numbers being better. The guide also includes additional information on each film. The statistican used a random number generator to select a simple random sample of 100 movies rated by the Guide.
 
 
-
-Descriptive statistics
+ Descriptive statistics
 ========================================================
+type: sub-section
+
+<br>
+
+- Quantitative variables:
+
+![plot of chunk unnamed-chunk-1](index-figure/unnamed-chunk-1-1.png)
 
 
+***
+<br>
+- Qualitative variables:
+
+![plot of chunk unnamed-chunk-2](index-figure/unnamed-chunk-2-1.png)
   
-
-$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$
 
 Boxplot rating per year
 ========================================================
+type: sub-section
 
 
 
@@ -46,6 +61,11 @@ Boxplot rating per year
 
 Movie duration per year
 ========================================================
+type: sub-section
+transition: fade
+transition-speed:fast
+
+
 
 
 
@@ -57,13 +77,14 @@ Movie duration per year
 	</style>
 	
 
-
 <div class="p_iframe">
 <iframe frameborder="0" seamless='seamless' scrolling=no src="scatterplot.html"></iframe>
 </div>
 
 Year, time and rating per country
 ========================================================
+type: sub-section
+
 
 
 

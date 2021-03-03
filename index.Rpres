@@ -4,34 +4,92 @@
 </script>
 
 Film data
-======
-author: 
+===================================
+author: Sanae Amzigh
 font-import: https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1&display=swap
 font-family: 'Shippori Mincho B1'
-css:costum.css
+css: costum.css
 
 ========================================================
+type: sub-section
+transition: fade
+transition-speed:fast
 
+
+<br>
 <br>
 <br>
 
 Data set found in the R package [Stat2Data](https://rdrr.io/rforge/Stat2Data/man/Film.html). The data collecting began when a statistician movie fan decided to use statistics to study the movie ratings in his favorite movie guide, Movie and Video Guide (1996), by Leonard Maltin. Maltin rates movies on a one-star to four-star system, in increments of half-stars, with higher numbers being better. The guide also includes additional information on each film. The statistican used a random number generator to select a simple random sample of 100 movies rated by the Guide.
 
 
-
-Descriptive statistics
+ Descriptive statistics
 ========================================================
+type: sub-section
+
+<br>
+
+- Quantitative variables:
 
 ```{r, echo=FALSE}
 library(Stat2Data)
-data("Film")
-```
-  
+library(gridExtra)
+library(grid)
 
-$\bar{X}=\frac{1}{n}\sum_{i=1}^nX_i$
+data("Film")
+a<-as.data.frame.table(as.array(summary(Film$Time)))
+b<-as.data.frame.table(as.array(summary(Film$Cast)))
+bb<-b[,2]
+c<-as.data.frame.table(as.array(summary(Film$Rating)))
+cc<-c[,2]
+summary_df=cbind(a, bb,cc)
+names(summary_df)<-c("Statistics","Time","Cast","Rating")
+
+grid.table(summary_df )
+
+```
+
+
+***
+<br>
+- Qualitative variables:
+
+```{r, echo=FALSE}
+library(tidyverse)
+
+Film$Good[which(Film$Good == 0)] <- 'Bad'
+Film$Good[which(Film$Good == 1)] <- 'Good'
+Film$Good <- as.factor(Film$Good)
+
+Film= Film[ ! Film$Origin %in% c(5,6), ]
+Film=Film%>% mutate(Origin = replace(Origin, Origin==0, "USA"))
+Film=Film%>% mutate(Origin = replace(Origin, Origin==1, "GB"))
+Film=Film%>% mutate(Origin = replace(Origin, Origin==2, "FR"))
+Film=Film%>% mutate(Origin = replace(Origin, Origin==3, "ITL"))
+Film=Film%>% mutate(Origin = replace(Origin, Origin==4, "CANADA"))
+
+mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+a=mode(Film$Origin)
+b=mode(Film$Time_code)
+c=mode(Film$Good)
+
+q_e<- data.frame(
+   Statistics = "Mode", 
+   Origin=a,
+   Time_code=b,
+   Good=c
+)
+
+grid.table(q_e)
+````
+  
 
 Boxplot rating per year
 ========================================================
+type: sub-section
 
 ```{r, echo=FALSE}
 library(htmlwidgets) 
@@ -60,19 +118,18 @@ htmlwidgets::saveWidget(p1,'boxplots.html')
 
 Movie duration per year
 ========================================================
+type: sub-section
+transition: fade
+transition-speed:fast
+
+
 
 ```{r, echo=FALSE}
 
-Film$Good[which(Film$Good == 0)] <- 'Bad'
-Film$Good[which(Film$Good == 1)] <- 'Good'
-Film$Good <- as.factor(Film$Good)
-
-
-
 p2<-plot_ly(data = Film, x = ~Year, y = ~Time,color=~Good, type = "scatter", mode = "markers") %>% layout( xaxis = list(title = "Year"), 
          yaxis = list(title = "Time (minutes)"))
-htmlwidgets::saveWidget(p2,'scatterplot.html')
 
+htmlwidgets::saveWidget(p2,'scatterplot.html')
 ```
 
 <style>
@@ -83,22 +140,16 @@ htmlwidgets::saveWidget(p2,'scatterplot.html')
 	</style>
 	
 
-
 <div class="p_iframe">
 <iframe frameborder="0" seamless='seamless' scrolling=no src="scatterplot.html"></iframe>
 </div>
 
 Year, time and rating per country
 ========================================================
+type: sub-section
+
 
 ```{r, echo=FALSE}
-Film= Film[ ! Film$Origin %in% c(5,6), ]
-Film=Film%>% mutate(Origin = replace(Origin, Origin==0, "USA"))
-Film=Film%>% mutate(Origin = replace(Origin, Origin==1, "GB"))
-Film=Film%>% mutate(Origin = replace(Origin, Origin==2, "FR"))
-Film=Film%>% mutate(Origin = replace(Origin, Origin==3, "ITL"))
-Film=Film%>% mutate(Origin = replace(Origin, Origin==4, "CANADA"))
-
 
 p3<-plot_ly(Film, x = ~Year, y = ~Time, z = ~Rating,type = "scatter3d",mode = "markers", 
             color = ~Origin) 

@@ -10,6 +10,13 @@
  
 }
 
+.subsection .reveal { 
+  text-indent:-5%;
+  font-size: 5px;
+  font-weight: bold;
+}
+
+
 .section .reveal .state-background {
     background: url("cine.jpg");
     background-position: center center;
@@ -17,3 +24,13 @@
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
+
+.reveal ul, 
+.reveal ol, 
+.reveal p{
+    font-size:80%;
+    list-style-type: disc;
+    text-indent: 50px;
+}
+
+
